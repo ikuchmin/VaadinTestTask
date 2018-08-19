@@ -29,6 +29,7 @@ public class PersistenceJPAConfig {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
+        System.out.println("#### persistence initialized :~~~~~~~~~~~~");
         return em;
     }
 
@@ -36,8 +37,8 @@ public class PersistenceJPAConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-        //dataSource.setUrl("jdbc:hsqldb:file:/testdbs/hospitaldb");
-        dataSource.setUrl("jdbc:hsqldb:mem:hospitaldb");
+        dataSource.setUrl("jdbc:hsqldb:file:/testdbs/hospitaldb");
+        //dataSource.setUrl("jdbc:hsqldb:mem:hospitaldb");
         dataSource.setUsername("SA");
         dataSource.setPassword("");
         return dataSource;

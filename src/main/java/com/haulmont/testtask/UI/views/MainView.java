@@ -12,7 +12,7 @@ import com.vaadin.ui.declarative.Design;
 import java.util.List;
 
 
-@DesignRoot
+@DesignRoot(value = "/templates/MainView.html")
 public class MainView extends VerticalLayout implements View {
 
     private List<RouteLink> links;
@@ -21,7 +21,6 @@ public class MainView extends VerticalLayout implements View {
 
     public MainView(List<RouteLink> links) {
         Design.read(this);
-
         this.links = links;
     }
 

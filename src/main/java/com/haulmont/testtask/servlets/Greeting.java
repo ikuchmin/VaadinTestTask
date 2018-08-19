@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
+@RequestMapping("rest")
 public class Greeting {
 
-    @RequestMapping("greeting")
+    @RequestMapping("hello")
     String home() {
         return "Hello World!";
     }

@@ -2,7 +2,9 @@ package com.haulmont.testtask.UI.components;
 
 import com.haulmont.testtask.UI.models.RouteLink;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.*;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Link;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.List;
 

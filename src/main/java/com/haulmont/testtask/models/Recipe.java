@@ -1,7 +1,6 @@
 package com.haulmont.testtask.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
