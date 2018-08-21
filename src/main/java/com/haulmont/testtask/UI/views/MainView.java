@@ -1,32 +1,25 @@
 package com.haulmont.testtask.UI.views;
 
-import com.haulmont.testtask.UI.components.HeaderComponent;
-import com.haulmont.testtask.UI.models.RouteLink;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Panel;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.Design;
 
-import java.util.List;
 
-
-@DesignRoot(value = "/templates/MainView.html")
+@SpringComponent
 public class MainView extends VerticalLayout implements View {
 
-    private List<RouteLink> links;
-    private Panel header;
-    private Panel container;
-
-    public MainView(List<RouteLink> links) {
-        Design.read(this);
-        this.links = links;
+    public MainView() {
+        //Design.read(this);
+        this.addComponent(new Label("my main page"));
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        this.header.setContent(new HeaderComponent(links));
 
     }
 }

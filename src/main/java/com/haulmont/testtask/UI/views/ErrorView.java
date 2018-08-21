@@ -7,12 +7,11 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-
 @SpringComponent
-public class RecipesView extends VerticalLayout implements View {
+public class ErrorView extends VerticalLayout implements View {
 
-    public RecipesView() {
-        this.addComponent(new Label("recipes"));
+    public ErrorView() {
+        this.addComponent(new Label("This page is not created yet."));
     }
 
     @Override
