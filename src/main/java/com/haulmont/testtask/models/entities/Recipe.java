@@ -1,4 +1,6 @@
-package com.haulmont.testtask.models;
+package com.haulmont.testtask.models.entities;
+
+import com.haulmont.testtask.models.RecipePriority;
 
 import javax.persistence.*;
 
@@ -12,14 +14,15 @@ public class Recipe {
     private Long id;
     private String name;
     private String value;
+    private RecipePriority priority;
 
     public Recipe() {
     }
 
-    public Recipe(Long id, String name, String value) {
-        this.id = id;
+    public Recipe(String name, String value, RecipePriority priority) {
         this.name = name;
         this.value = value;
+        this.priority = priority;
     }
 
     public Long getId() {
@@ -46,4 +49,11 @@ public class Recipe {
         this.value = value;
     }
 
+    public RecipePriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(RecipePriority priority) {
+        this.priority = priority;
+    }
 }

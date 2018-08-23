@@ -24,7 +24,7 @@ public class PersistenceJPAConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.haulmont.testtask.models"});
+        em.setPackagesToScan(new String[]{"com.haulmont.testtask.models.entities"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -37,8 +37,8 @@ public class PersistenceJPAConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
-        dataSource.setUrl("jdbc:hsqldb:file:/testdbs/hospitaldb");
-        //dataSource.setUrl("jdbc:hsqldb:mem:hospitaldb");
+        //dataSource.setUrl("jdbc:hsqldb:file:/testdbs/hospitaldb");
+        dataSource.setUrl("jdbc:hsqldb:mem:hospitaldb");
         dataSource.setUsername("SA");
         dataSource.setPassword("");
         return dataSource;

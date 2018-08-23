@@ -1,4 +1,4 @@
-package com.haulmont.testtask.models;
+package com.haulmont.testtask.models.entities;
 
 import javax.persistence.*;
 import java.util.List;

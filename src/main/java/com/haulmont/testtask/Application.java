@@ -1,14 +1,12 @@
 package com.haulmont.testtask;
 
-import com.haulmont.testtask.UI.views.MainView;
+import com.haulmont.testtask.UI.models.UserQualifier;
+import com.haulmont.testtask.UI.views.*;
 import com.haulmont.testtask.UI.components.HeaderComponent;
 import com.haulmont.testtask.UI.models.RouteLink;
-import com.haulmont.testtask.UI.views.DoctorsView;
-import com.haulmont.testtask.UI.views.ErrorView;
-import com.haulmont.testtask.UI.views.PatientsView;
-import com.haulmont.testtask.UI.views.RecipesView;
-import com.haulmont.testtask.models.Role;
-import com.haulmont.testtask.models.User;
+import com.haulmont.testtask.models.RoleType;
+import com.haulmont.testtask.models.entities.Role;
+import com.haulmont.testtask.models.entities.User;
 import com.haulmont.testtask.repositories.RoleRepository;
 import com.haulmont.testtask.repositories.UserRepository;
 import com.vaadin.annotations.Theme;
@@ -20,6 +18,7 @@ import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,34 +31,32 @@ import java.util.List;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-		"com.haulmont.testtask.beans",
-		"com.haulmont.testtask.atest",
-		"com.haulmont.testtask.atestbean",
-		"com.haulmont.testtask.UI.views"
+        "com.haulmont.testtask.beans",
+        "com.haulmont.testtask.UI.views"
 })
 @EnableJpaRepositories(basePackages = {
-		"com.haulmont.testtask.repositories"
+        "com.haulmont.testtask.repositories"
 })
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
     @Theme("valo")
     @SpringUI(path = "")
     public static class MainNavigator extends UI {
 
         @Autowired
-	    private MainView mainView;
+        private MainView mainView;
         @Autowired
-	    private DoctorsView doctorsView;
+        private DoctorsView doctorsView;
         @Autowired
-	    private PatientsView patientsView;
+        private PatientsView patientsView;
         @Autowired
-	    private RecipesView recipesView;
+        private RecipesView recipesView;
 
         private List<RouteLink> links;
         private Navigator navigator;
@@ -78,7 +75,6 @@ public class Application {
             this.setContent(mainLayout);
         }
 
-        @Autowired
         private List<RouteLink> getLinks() {
             List<RouteLink> links = new ArrayList<>();
             links.add(new RouteLink("", "Main", mainView));
@@ -103,8 +99,8 @@ public class Application {
             UserRepository userRepository,
             RoleRepository roleRepository) {
         return (args) -> {
-            Role doctor = new Role("doctor", "crew of the hospital");
-            Role patient = new Role("patient", "client of the hospital");
+            Role doctor = new Role(RoleType.DOCTOR, "crew of the hospital");
+            Role patient = new Role(RoleType.PATIENT, "client of the hospital");
             User upatient = new User(
                     "fntest",
                     "mntest",
@@ -124,7 +120,7 @@ public class Application {
             roleRepository.save(patient);
             userRepository.save(upatient);
             userRepository.save(udoctor);
-            System.out.println(userRepository.getAllUsersWithRole("doctor"));
+            System.out.println(userRepository.getAllUsersWithRole(RoleType.DOCTOR));
             log.info(roleRepository.findAll().toString());
             log.info(userRepository.findAll().toString());
             log.info("bean initialized");

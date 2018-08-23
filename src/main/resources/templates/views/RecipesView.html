@@ -6,12 +6,13 @@
 
 <body>
     <vaadin-vertical-layout>
-        <vaadin-horizontal-layout>
-            <vaadin-panel _id="toolbar">
-            </vaadin-panel>
+        <vaadin-horizontal-layout _id="toolbar">
+            <vaadin-button _id="addButton">
+                Create new
+            </vaadin-button>
         </vaadin-horizontal-layout>
         <vaadin-vertical-layout>
-            <vaadin-grid _id="grid">
+            <vaadin-grid _id="grid" size-full>
             </vaadin-grid>
         </vaadin-vertical-layout>
     </vaadin-vertical-layout>

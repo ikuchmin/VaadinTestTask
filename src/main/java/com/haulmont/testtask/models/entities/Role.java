@@ -1,4 +1,6 @@
-package com.haulmont.testtask.models;
+package com.haulmont.testtask.models.entities;
+
+import com.haulmont.testtask.models.RoleType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +13,10 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType name;
+
     private String description;
 
     @OneToMany(mappedBy = "role")
@@ -20,7 +25,7 @@ public class Role {
     public Role() {
     }
 
-    public Role(String name, String description) {
+    public Role(RoleType name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -42,11 +47,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleType getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleType name) {
         this.name = name;
     }
 
