@@ -9,7 +9,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.*;
 import com.vaadin.ui.declarative.Design;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
 
@@ -32,11 +32,12 @@ public class UserEditDialog extends Window {
 
     /**
      * Constructor for creating new user
+     *
      * @param roleType
      * @param event
      * @param roles
      */
-    public UserEditDialog(RoleType roleType, Consumer<DialogEvent<User>> event, Collection<Role> roles) {
+    public UserEditDialog(RoleType roleType, Consumer<DialogEvent<User>> event, List<Role> roles) {
         this.user = new User();
         this.event = event;
         init(false, roles);
@@ -44,18 +45,19 @@ public class UserEditDialog extends Window {
 
     /**
      * Constructor for updating existing user
+     *
      * @param roleType
      * @param user
      * @param event
      * @param roles
      */
-    public UserEditDialog(RoleType roleType, User user, Consumer<DialogEvent<User>> event, Collection<Role> roles) {
+    public UserEditDialog(RoleType roleType, User user, Consumer<DialogEvent<User>> event, List<Role> roles) {
         this.user = user;
         this.event = event;
         init(true, roles);
     }
 
-    private void init(boolean updating, Collection<Role> roles) {
+    private void init(boolean updating, List<Role> roles) {
         Design.read(this);
         submitButton.addClickListener(this::submit);
         dismissButton.addClickListener(this::dismiss);
@@ -69,7 +71,7 @@ public class UserEditDialog extends Window {
 
     private void setUserData(User user) {
         firstNameField.setValue(user.getFirstName());
-        secondNameField.setValue(user.getSecondName());
+        secondNameField.setValue(user.getLastName());
         middleNameField.setValue(user.getMiddleName());
         phoneField.setValue(user.getPhone());
         specializationField.setValue(user.getSpecialization());
@@ -78,7 +80,7 @@ public class UserEditDialog extends Window {
 
     private User collectUserData() {
         user.setFirstName(firstNameField.getValue());
-        user.setSecondName(secondNameField.getValue());
+        user.setLastName(secondNameField.getValue());
         user.setMiddleName(middleNameField.getValue());
         user.setPhone(phoneField.getValue());
         user.setSpecialization(specializationField.getValue());

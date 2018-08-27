@@ -4,9 +4,12 @@ import com.haulmont.testtask.UI.models.UserQualifier;
 import com.haulmont.testtask.UI.views.*;
 import com.haulmont.testtask.UI.components.HeaderComponent;
 import com.haulmont.testtask.UI.models.RouteLink;
+import com.haulmont.testtask.models.RecipePriority;
 import com.haulmont.testtask.models.RoleType;
+import com.haulmont.testtask.models.entities.Recipe;
 import com.haulmont.testtask.models.entities.Role;
 import com.haulmont.testtask.models.entities.User;
+import com.haulmont.testtask.repositories.RecipeRepository;
 import com.haulmont.testtask.repositories.RoleRepository;
 import com.haulmont.testtask.repositories.UserRepository;
 import com.vaadin.annotations.Theme;
@@ -97,32 +100,46 @@ public class Application {
     @Bean
     public CommandLineRunner loadData(
             UserRepository userRepository,
-            RoleRepository roleRepository) {
+            RoleRepository roleRepository,
+            RecipeRepository recipeRepository) {
         return (args) -> {
             Role doctor = new Role(RoleType.DOCTOR, "crew of the hospital");
             Role patient = new Role(RoleType.PATIENT, "client of the hospital");
-            User upatient = new User(
-                    "fntest",
-                    "mntest",
-                    "sntest",
-                    "phone",
-                    patient
+            User u1patient = new User(
+                    "fntest", "mntest", "sntest", "phone", patient
             );
-            User udoctor = new User(
-                    "doc",
-                    "doc",
-                    "doc",
-                    "phone123",
-                    "Therapist",
-                    doctor
+            User u2patient = new User(
+                    "fntest2", "mntest2", "sntest2", "p1hone", patient
+            );
+            User u1doctor = new User(
+                    "doc", "doc", "doc", "phone123", "Therapist", doctor
+            );
+            User u2doctor = new User(
+                    "doc2", "doc2", "doc2", "phone321", "Psycho", doctor
+            );
+            Recipe r1 = new Recipe(
+                    "Recipe 1", "Brash teeth", RecipePriority.STATIM, u1doctor
+            );
+            Recipe r2 = new Recipe(
+                    "Recipe 2", "Wash hands", RecipePriority.CITO, u2doctor
+            );
+            Recipe r3 = new Recipe(
+                    "Recipe 3", "Shower", RecipePriority.STANDARD, u2doctor
             );
             roleRepository.save(doctor);
             roleRepository.save(patient);
-            userRepository.save(upatient);
-            userRepository.save(udoctor);
+            userRepository.save(u1patient);
+            userRepository.save(u2patient);
+            userRepository.save(u1doctor);
+            userRepository.save(u2doctor);
+            recipeRepository.save(r1);
+            recipeRepository.save(r2);
+            recipeRepository.save(r3);
+
             System.out.println(userRepository.getAllUsersWithRole(RoleType.DOCTOR));
             log.info(roleRepository.findAll().toString());
             log.info(userRepository.findAll().toString());
+            log.info(recipeRepository.findAll().toString());
             log.info("bean initialized");
             log.info("bean initialized2");
         };

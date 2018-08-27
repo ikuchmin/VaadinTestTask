@@ -5,6 +5,7 @@ import com.haulmont.testtask.UI.models.DialogEventType;
 import com.haulmont.testtask.models.RecipePriority;
 import com.haulmont.testtask.models.entities.Recipe;
 import com.haulmont.testtask.models.entities.Role;
+import com.haulmont.testtask.models.entities.User;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.NativeSelect;
@@ -13,6 +14,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.declarative.Design;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 
 
@@ -22,6 +24,7 @@ public class RecipeEditDialog extends Window {
     private TextField nameField;
     private TextField valueField;
     private NativeSelect<RecipePriority> prioritySelect;
+    private NativeSelect<User> doctorSelect;
 
     private Button submitButton;
     private Button dismissButton;
@@ -34,10 +37,10 @@ public class RecipeEditDialog extends Window {
      *
      * @param event
      */
-    public RecipeEditDialog(Consumer<DialogEvent<Recipe>> event) {
+    public RecipeEditDialog(Consumer<DialogEvent<Recipe>> event, List<User> doctors) {
         this.recipe = new Recipe();
         this.event = event;
-        init(false);
+        init(false, doctors);
     }
 
     /**
@@ -46,13 +49,13 @@ public class RecipeEditDialog extends Window {
      * @param recipe
      * @param event
      */
-    public RecipeEditDialog(Recipe recipe, Consumer<DialogEvent<Recipe>> event) {
+    public RecipeEditDialog(Recipe recipe, Consumer<DialogEvent<Recipe>> event, List<User> doctors) {
         this.recipe = recipe;
         this.event = event;
-        init(true);
+        init(true, doctors);
     }
 
-    private void init(boolean updating) {
+    private void init(boolean updating, List<User> doctors) {
         Design.read(this);
         if (updating) {
             setRecipeData();
@@ -61,6 +64,8 @@ public class RecipeEditDialog extends Window {
         center();
         prioritySelect.setItems(RecipePriority.values());
         prioritySelect.setItemCaptionGenerator(RecipePriority::name);
+        doctorSelect.setItems(doctors);
+        doctorSelect.setItemCaptionGenerator(User::getInitials);
     }
 
     private void setButtonsHandlers() {

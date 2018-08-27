@@ -20,6 +20,7 @@ import com.vaadin.ui.declarative.Design;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.dialogs.ConfirmDialog;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -59,7 +60,7 @@ public class RecipesView extends VerticalLayout implements View {
                 loadDataToGrid();
             }
             //UI.getCurrent().removeWindow(addDialog);
-        });
+        }, userRepository.getAllUsersWithRole(RoleType.DOCTOR));
         UI.getCurrent().addWindow(addDialog);
     }
 
@@ -86,7 +87,8 @@ public class RecipesView extends VerticalLayout implements View {
                         loadDataToGrid();
                     }
                     //UI.getCurrent().removeWindow(addDialog);
-                }
+                },
+                userRepository.getAllUsersWithRole(RoleType.DOCTOR)
         );
         UI.getCurrent().addWindow(addDialog);
     }
@@ -99,6 +101,7 @@ public class RecipesView extends VerticalLayout implements View {
         grid.addColumn(Recipe::getName).setCaption("Recipe name");
         grid.addColumn(Recipe::getValue).setCaption("Recipe");
         grid.addColumn(Recipe::getPriority).setCaption("Priority");
+        grid.addColumn(recipe -> recipe.getCreator().getInitials()).setCaption("Creator");
         grid.addComponentColumn(recipe -> {
             Button b = new Button("", clickEvent -> this.editUserButton(recipe));
             b.setIcon(VaadinIcons.PENCIL);

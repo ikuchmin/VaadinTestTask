@@ -59,7 +59,7 @@ public class PatientsView extends VerticalLayout implements View {
                 loadDataToGrid();
             }
             //UI.getCurrent().removeWindow(addDialog);
-        }, StreamSupport.stream(roleRepository.findAll().spliterator(), false).collect(Collectors.toList()));
+        }, roleRepository.findByName(RoleType.PATIENT));
         UI.getCurrent().addWindow(addDialog);
     }
 
@@ -87,7 +87,7 @@ public class PatientsView extends VerticalLayout implements View {
                     }
                     //UI.getCurrent().removeWindow(addDialog);
                 },
-                StreamSupport.stream(roleRepository.findAll().spliterator(), false).collect(Collectors.toList())
+                roleRepository.findByName(RoleType.PATIENT)
         );
         UI.getCurrent().addWindow(addDialog);
     }
@@ -99,7 +99,7 @@ public class PatientsView extends VerticalLayout implements View {
     private void initializeGrid() {
         grid.addColumn(User::getFirstName).setCaption("First name");
         grid.addColumn(User::getMiddleName).setCaption("Middle name");
-        grid.addColumn(User::getSecondName).setCaption("Second name");
+        grid.addColumn(User::getLastName).setCaption("Second name");
         grid.addColumn(User::getPhone).setCaption("Phone");
         grid.addComponentColumn(user -> {
             Button b = new Button("", clickEvent -> this.editUserButton(user));

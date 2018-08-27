@@ -13,7 +13,7 @@ public class User {
     private Long id;
     private String firstName;
     private String middleName;
-    private String secondName;
+    private String lastName;
     private String phone;
     private String specialization;
 
@@ -31,23 +31,26 @@ public class User {
     )
     private List<Recipe> recipes;
 
+    @OneToMany(mappedBy = "creator")
+    private List<Recipe> createdRecipes;
+
     public User() {
 
     }
 
-    public User(String firstName, String middleName, String secondName, String phone, String specialization, Role role) {
+    public User(String firstName, String middleName, String lastName, String phone, String specialization, Role role) {
         this.firstName = firstName;
         this.middleName = middleName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.phone = phone;
         this.specialization = specialization;
         this.role = role;
     }
 
-    public User(String firstName, String middleName, String secondName, String phone, Role role) {
+    public User(String firstName, String middleName, String lastName, String phone, Role role) {
         this.firstName = firstName;
         this.middleName = middleName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.phone = phone;
         this.role = role;
     }
@@ -58,12 +61,23 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", specialization='" + specialization + '\'' +
                 ", role=" + this.getRole() +
                 //", recipes=" + recipes +
                 '}';
+    }
+
+    public String getInitials() {
+        String initials = "";
+        if (!firstName.isEmpty())
+            initials += firstName.toUpperCase().charAt(0) + ". ";
+        if (!middleName.isEmpty())
+            initials += middleName.toUpperCase().charAt(0) + ". ";
+        if (!lastName.isEmpty())
+            initials += lastName;
+        return initials;
     }
 
     public Long getId() {
@@ -90,12 +104,12 @@ public class User {
         this.middleName = middleName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -128,5 +142,13 @@ public class User {
 
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    public List<Recipe> getCreatedRecipes() {
+        return createdRecipes;
+    }
+
+    public void setCreatedRecipes(List<Recipe> createdRecipes) {
+        this.createdRecipes = createdRecipes;
     }
 }

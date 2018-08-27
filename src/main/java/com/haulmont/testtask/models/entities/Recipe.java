@@ -16,13 +16,28 @@ public class Recipe {
     private String value;
     private RecipePriority priority;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User creator;
+
     public Recipe() {
     }
 
-    public Recipe(String name, String value, RecipePriority priority) {
+    public Recipe(String name, String value, RecipePriority priority, User creator) {
         this.name = name;
         this.value = value;
         this.priority = priority;
+        this.creator = creator;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", priority=" + priority +
+                '}';
     }
 
     public Long getId() {
@@ -55,5 +70,13 @@ public class Recipe {
 
     public void setPriority(RecipePriority priority) {
         this.priority = priority;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }
