@@ -24,6 +24,8 @@ public class PersistenceJPAConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
+
+        // todo: зачем вот тут массив
         em.setPackagesToScan(new String[]{"com.haulmont.testtask.models.entities"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();

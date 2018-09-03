@@ -21,6 +21,7 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    // todo: зачем нужны каскады?
     @ManyToMany(cascade = {
         CascadeType.PERSIST,
         CascadeType.MERGE

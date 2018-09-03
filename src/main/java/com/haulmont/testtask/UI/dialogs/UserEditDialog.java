@@ -78,6 +78,7 @@ public class UserEditDialog extends Window {
         roleSelect.setValue(user.getRole());
     }
 
+    // todo возможно ли что-то сделать с ручным заполнением сущности?
     private User collectUserData() {
         user.setFirstName(firstNameField.getValue());
         user.setLastName(secondNameField.getValue());

@@ -114,6 +114,7 @@ public class DoctorsView extends VerticalLayout implements View {
         });
     }
 
+    // todo ручное заполнение грида
     private void loadDataToGrid() {
         grid.setItems(userRepository.getAllUsersWithRole(roleType));
     }
